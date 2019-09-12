@@ -47,10 +47,10 @@ class RailRoad
       when 13
         train_route
       when 0
-		puts 'Спасибо за использование программы'
+	puts 'Спасибо за использование программы'
         exit
       else
-		system 'clear'
+	system 'clear'
         user_action
       end
     end
@@ -104,10 +104,10 @@ class RailRoad
     wagon =
       if type == 1
         PassengerWagon.new(number)
-		puts 'Пассажирский вагон #{number} создан'
+	puts 'Пассажирский вагон #{number} создан'
       elsif type == 2
         CargoWagon.new(number)
-		puts 'Грузовой вагон #{number} создан'
+	puts 'Грузовой вагон #{number} создан'
       else
         create_wagon
       end
@@ -119,7 +119,7 @@ class RailRoad
     name = gets.chomp.to_s
 
     @stations << Station.new(name)
-	puts 'Станция #{name} создана'
+    puts 'Станция #{name} создана'
   end
 
   def station_list
