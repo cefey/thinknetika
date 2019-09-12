@@ -18,17 +18,24 @@ class RailRoad
 
   def main_menu
     puts 'Выберите действие: '
-    puts '1. Меню станций '
-    puts '2. Меню поездов '
+    puts '1. Создать станцию '
+    puts '2. Создать поезд '
+    puts '3. Создать маршрут '
+    puts '4. Удалить станцию ' 
     puts '0. Выйти из программы'
 
     choice = gets.chomp
 
     case choice
     when '1'
-      stations_menu
+      create_station
+      main_menu
     when '2'
       trains_menu
+    when '3'
+      
+    when '4'
+      delete_station
     when '0'
       exit
     else
@@ -97,7 +104,7 @@ class RailRoad
     puts 'Введены некорректные данные.Проверьте введенные данные'
     main_menu
   end
-
+  
   def trains_menu
     puts 'Сделайте выбор'
     puts '1. Создать поезд'
