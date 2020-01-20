@@ -1,17 +1,32 @@
 # frozen_string_literal: true
 
+require_relative './wagon.rb'
 class PassengerWagon < Wagon
-  attr_reader :type
-
-  def initialize(number, volume)
-    super(number, volume)
-    @type = :passenger
+  NUMBER_FORMAT = /\w{3}-?{1}\w{2}$/.freeze
+  attr_reader :seats, :seats_taken
+  def initialize(number, seats)
+    super(number, 'passenger')
+    @seats = seats
+    @seats_taken = 0
   end
 
-  def book_volume
-    raise 'No free seats' if free_volume.zero?
-
-    super(1)
+  def validate!
+    raise "Number can't be nil" unless number
+    raise 'Number has invalid format' if number !~ NUMBER_FORMAT
   end
-  alias book_seat book_volume
+
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
+  end
+
+  def seat_take
+    @seats_taken += 1 if @seats_taken < @seats
+  end
+
+  def seat_left
+    @seats -= @seats_taken
+  end
 end

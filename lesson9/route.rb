@@ -1,41 +1,41 @@
 # frozen_string_literal: true
 
-require_relative 'instance_count'
-require_relative 'validator'
-
 class Route
-  include InstanceCount
-  include Validator
+  include InstanceCounter
+  attr_reader :stations, :first, :last
 
-  @routes = []
-  class << self
-    attr_accessor :routes
-  end
-
-  attr_accessor :route
-  attr_reader :start, :finish
-
-  def initialize(start, finish)
-    @start = start
-    @finish = finish
-    @route = [start, finish]
-    self.class.routes << self
+  def initialize(first, last)
+    @first = first
+    @last = last
+    validate!
+    @stations = [first, last]
     register_instance
   end
 
-  def add_station(station, place)
-    raise 'Start and end cannot be changed' unless (2..@route.size).cover? place
-
-    @route.insert(place - 1, station)
+  def validate!
+    raise "First name can't be nil" unless first
+    raise "Last name can't be nil" unless last
   end
 
-  def delete_station(station)
-    raise 'Cannot change start and finish' if [@start, @finish].include? station
-
-    @route.delete(station)
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
   end
 
-  def print_route
-    @route.each { |x| puts x.name }
+  def station_add(station)
+    @stations.insert(-2, station)
+    puts "Станция #{station.name} добавлена в маршрут"
+  end
+
+  def station_remove(station)
+    @stations.delete(station)
+  end
+
+  def show_route
+    puts "Станции на маршруте #{@stations[0]} - #{@stations[-1]}"
+    @stations.each_with_index { |stations, i| puts "#{i + 1}. #{stations}" }
+    puts
   end
 end

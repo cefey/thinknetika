@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ObjectSelector
   def get_action_id(final, start = 0)
     case action = gets.chomp

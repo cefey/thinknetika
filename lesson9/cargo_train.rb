@@ -1,18 +1,21 @@
 # frozen_string_literal: true
 
 class CargoTrain < Train
-  @trains = {}
-  attr_reader :type
+  NUMBER_FORMAT = /\w{3}-?{1}\w{2}$/.freeze
+
   def initialize(number)
-    super(number)
-    @type = :cargo
+    super(number, 'cargo')
   end
 
-  private
+  def validate!
+    raise "Number can't be nil" unless number
+    raise 'Number has invalid format' if number !~ NUMBER_FORMAT
+  end
 
-  def attach_wagon(wagon)
-    raise 'Wrong type of wagon' unless wagon.class == CargoWagon
-
-    super(wagon)
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
   end
 end
