@@ -11,8 +11,6 @@ class Player
   def card_score_calculation(card)
     score = card.card_value.to_i if Card::FACE_NUMBERS.include?(card.card_value)
     score = 10 if Card::FACE_PICTURES.include?(card.card_value)
-    #according the task we should check current player' score
-    # before adding scores for aces, it may be 1 or 11
     if Card::FACE_ACES.include?(card.card_value)
       if @score > 10
         score = 1

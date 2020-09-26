@@ -1,9 +1,7 @@
 require_relative 'game'
-#-------Initialize new Game
 @game = Game.new
-#------Describe game-logic methods for console interface
 def greeting
-  puts " Please write down your name:"
+  puts " Please input your name:"
   _name = gets.chomp
 end
 
@@ -86,9 +84,7 @@ def make_desicion(answer)
 end
 
 def play
-  #We should clear hands and score since 2d round
   @game.clear_hands
-  #Give first 2 cards to gamer and 2 for dealer
   @game.give_first_cards
   system("clear")
   puts " Dealer's card :"
